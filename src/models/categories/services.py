@@ -6,6 +6,7 @@ class Category:
     def __init__(self):
         self.connection = Connection()
 
+    ## LIST CATEGORIES
     def listAll(self):
         try: 
             self.connection.connect()
@@ -16,6 +17,7 @@ class Category:
         except Error as error: raise Exception(error)
         finally: self.connection.close()
 
+    ## GET CATEGORY BY ID
     def get(self, categoryId):
         try: 
             self.connection.connect()
@@ -27,6 +29,7 @@ class Category:
         except Error as error: raise Exception(error)
         finally: self.connection.close()
 
+    ## CREATE NEW CATEGORY
     def create(self, objData):
         try: 
             self.connection.connect()
@@ -40,8 +43,11 @@ class Category:
         except Error as error: raise Exception(error)
         finally: self.connection.close()
 
+    ## UPDATE CATEGORY
     def update(self, categoryId, objData):
         try: 
+            if not categoryId: return 'Id is required'
+            
             self.connection.connect()
             sql = ''' 
                 update category set title = %s where id = %s 
@@ -53,6 +59,7 @@ class Category:
         except Error as error: raise Exception(error)
         finally: self.connection.close()
 
+    ## DELETE CATEGORY
     def delete(self, categoryId):
         try: 
             self.connection.connect()

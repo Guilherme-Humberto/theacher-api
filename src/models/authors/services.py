@@ -11,7 +11,7 @@ class Author:
         try: 
             self.connection.connect()
             sql = '''
-                SELECT * FROM author order by first_name
+                select * from author order by first_name
             '''
             return self.connection.query(sql).fetchall()
         except Error as error: raise Exception(error)
@@ -21,7 +21,7 @@ class Author:
     def get(self, authorId):
         try: 
             self.connection.connect()
-            sql = '''SELECT * FROM author where id = %s'''
+            sql = '''select * from author where id = %s'''
             result = self.connection.query(sql, (authorId,))
             return result.fetchone()
         except Error as error: raise Exception(error)
@@ -59,7 +59,7 @@ class Author:
     ## UPDATE AUTHOR
     def update(self, authorId, objData):
         try: 
-            if not authorId: return 'Id obrigatório'
+            if not authorId: return 'Id is required'
 
             self.connection.connect()
             sql = ''' 

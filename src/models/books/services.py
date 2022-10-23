@@ -10,6 +10,7 @@ class Book:
         self.author = Author()
         self.category = Category()
     
+    ## LIST ALL BOOKS
     def listAll(self):
         try: 
             self.connection.connect()
@@ -20,9 +21,10 @@ class Book:
         except Error as error: raise Exception(error)
         finally: self.connection.close()
 
+    ## GET BOOK BY ISBN
     def get(self, bookIsbn):
         try: 
-            if not bookIsbn: return 'ISBN não informado'
+            if not bookIsbn: return 'ISBN is required'
             
             self.connection.connect()
             sql = '''
@@ -33,15 +35,16 @@ class Book:
         except Error as error: raise Exception(error)
         finally: self.connection.close()
 
+    ## CREATE NEW BOOK
     def create(self, objData):
         try: 
             author = self.author.get(objData['author_id'])
             category = self.category.get(objData['category_id'])
             book = self.get(objData['isbn'])
 
-            if not author: return 'Autor não encontrado'
-            if not category: return 'Categoria não encontrado'
-            if book: return 'Livro já cadastrado'
+            if not author: return 'Author not found'
+            if not category: return 'Category not found'
+            if book: return 'Book already exists'
 
             self.connection.connect()
  
@@ -65,17 +68,18 @@ class Book:
         except Error as error: raise Exception(error)
         finally: self.connection.close()
 
+    ## UPDATE BOOK
     def update(self, bookIsbn, objData):
         try: 
-            if not bookIsbn: return 'ISBN não informado'
+            if not bookIsbn: return 'ISBN is required'
 
             book = self.get(bookIsbn)
             author = self.author.get(objData['author_id'])
             category = self.category.get(objData['category_id'])
 
-            if not book: return 'Livro não encontrado'
-            if not author: return 'Autor não encontrado'
-            if not category: return 'Categoria não encontrado'
+            if not book: return 'Book not found'
+            if not author: return 'Author not found'
+            if not category: return 'Category not found'
  
             self.connection.connect()
 
@@ -98,6 +102,7 @@ class Book:
         except Error as error: raise Exception(error)
         finally: self.connection.close()
 
+    ## DELETE BOOK
     def delete(self, bookId):
         try: 
             self.connection.connect()
@@ -107,6 +112,7 @@ class Book:
         except Error as error: raise Exception(error)
         finally: self.connection.close()
 
+    ## GET BOOK DETAILS
     def details(self):
         try: 
             self.connection.connect()
