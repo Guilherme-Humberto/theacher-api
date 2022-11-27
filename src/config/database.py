@@ -8,5 +8,6 @@ config = {
     'host': os.getenv("MYSQL_HOST"),
     'port': os.getenv("MYSQL_PORT"),
     'database': os.getenv("MYSQL_DATABASE"),
-    'password': os.getenv("MYSQL_PASSWORD")
+    'password': os.getenv("MYSQL_PASSWORD"),
+    'auth_plugin': 'mysql_native_password'
 }
