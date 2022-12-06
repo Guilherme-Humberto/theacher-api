@@ -7,8 +7,8 @@ class CreateStudent:
     def __init__(self, data):
         self.connection = Connection()
         self.email = data['email']
-        self.first_name = data['first_name']
-        self.second_name = data['second_name']
+        self.first_name = data['name']
+        self.second_name = data['username']
 
     def execute(self):
         try: 
@@ -21,11 +21,11 @@ class CreateStudent:
 
             sql = '''
                 insert into tbl_student 
-                (first_name, second_name, email) values (%s, %s, %s)
+                (name, username, email) values (%s, %s, %s)
             '''
             parameters = (
-                self.first_name,
-                self.second_name,
+                self.name,
+                self.username,
                 self.email,
             )
             self.connection.query(sql, (parameters))

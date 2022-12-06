@@ -3,11 +3,11 @@ from jsonschema import validate, exceptions
 studentSchema = {
     "type": "object",
     "properties": {
-        "first_name": {"type": "string"},
-        "second_name": {"type": "string"},
+        "name": {"type": "string"},
+        "username": {"type": "string"},
         "email": {"type": "string"},
     },
-    "required": ["first_name", "second_name", "email"]
+    "required": ["name", "username", "email"]
 }
 
 def validateStudentSchema(jsonData):
