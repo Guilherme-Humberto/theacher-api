@@ -1,13 +1,16 @@
 from flask import Blueprint, request
-from src.models.student.validate.schema import validateStudentSchema
+from src.models.student.validate.schema import validateCreateSchema, validateFindSchema
 from src.models.student.services import get
 from src.models.student.services import create
 
 student = Blueprint('student', __name__)
 
 @student.route('/student', methods=['GET'])
-def getStudentById():
-    getStudent = get.GetStudent()
+def getStudent():
+    body = request.json
+    validateFindSchema(body)
+
+    getStudent = get.GetStudent(body)
     response = getStudent.execute()
     
     return { 'student': response }
@@ -15,7 +18,7 @@ def getStudentById():
 @student.route('/student', methods=['POST'])
 def createStudent():
     body = request.json
-    validateStudentSchema(body)
+    validateCreateSchema(body)
 
     createStudent = create.CreateStudent(body)
 

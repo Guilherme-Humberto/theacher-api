@@ -1,6 +1,6 @@
 from jsonschema import validate, exceptions
 
-studentSchema = {
+createSchema = {
     "type": "object",
     "properties": {
         "name": {"type": "string"},
@@ -10,11 +10,30 @@ studentSchema = {
     "required": ["name", "username", "email"]
 }
 
-def validateStudentSchema(jsonData):
+findSchema = {
+    "type": "object",
+    "properties": {
+        "username": {"type": "string"},
+        "password": {"type": "string"},
+    },
+    "required": ["username", "password"]
+}
+
+def validateCreateSchema(jsonData):
     try:
         validate(
             instance=jsonData, 
-            schema=studentSchema
+            schema=createSchema
+        )
+    except exceptions.ValidationError as error:
+        raise Exception(error)
+    return True
+
+def validateFindSchema(jsonData):
+    try:
+        validate(
+            instance=jsonData, 
+            schema=findSchema
         )
     except exceptions.ValidationError as error:
         raise Exception(error)
